@@ -1,29 +1,75 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <base href="https://cdn.jsdelivr.net/gh/web-ports/clover-pit@main/">
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | CloverPit</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-  </head>
-  <body>
-    <div id="loading-text"
+
+<head>
+  <!-- <base href="https://cdn.jsdelivr.net/gh/web-ports/clover-pit@main/"> -->
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Unity Web Player | CloverPit</title>
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <link rel="stylesheet" href="TemplateData/style.css">
+  <style>
+    #sidebarad1,
+    #sidebarad2 {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 160px;
+      height: 600px;
+      padding: 0;
+      margin: 0;
+      z-index: 999999;
+    }
+
+    #sidebarad1 {
+      left: 0;
+    }
+
+    #sidebarad2 {
+      right: 0;
+    }
+
+    .sidebar-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
+    }
+
+    .sidebar-frame {
+      width: 160px;
+      height: 600px;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loading-text"
     style="color: white; font-size: 48px; font-family: cursive; text-align: center; margin-top: 20px;"> LOADING...
   </div>
-    <div id="unity-container">
-      <canvas id="unity-canvas" width=960 height=540 tabindex="-1"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
-        </div>
+  <div id="unity-container">
+    <canvas id="unity-canvas" width=960 height=540 tabindex="-1"></canvas>
+    <div id="unity-loading-bar">
+      <div id="unity-logo"></div>
+      <div id="unity-progress-bar-empty">
+        <div id="unity-progress-bar-full"></div>
       </div>
-      <div id="unity-warning"> </div>
     </div>
-    <script>
-      var loadingText = document.querySelector("#loading-text");
+    <div id="unity-warning"> </div>
+  </div>
+  <script>
+    var loadingText = document.querySelector("#loading-text");
     let totalBytes = 0;
     let loadedBytes = 0;
 
@@ -129,14 +175,14 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
+          loadingText.remove();
         }).catch((message) => {
-          console.error(message);
         });
       };
-      
-      // FIX 1: Append the script INSIDE the async function where it is defined
-      document.body.appendChild(script); 
-    })(); // FIX 2: Added () here so the async function actually executes!
-</script>
-  </body>
+      document.body.appendChild(script);
+    })();
+  </script>
+
+</body>
+
 </html>
