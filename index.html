@@ -130,10 +130,13 @@
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
         }).catch((message) => {
+          console.error(message);
         });
       };
-    });
-      document.body.appendChild(script);
-    </script>
+      
+      // FIX 1: Append the script INSIDE the async function where it is defined
+      document.body.appendChild(script); 
+    })(); // FIX 2: Added () here so the async function actually executes!
+</script>
   </body>
 </html>
